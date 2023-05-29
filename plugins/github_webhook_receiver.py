@@ -31,6 +31,7 @@ def github_hook():
     print(f"GH webhook payload of event {event_name}, content: {content}")
     print(f"action: {content['action']}")
     if event_name == "pull_request":
+        # TODO Check action, as well as the target repo in the event
         triggered_run = trigger_dag('qlucie_dag', conf={'pr_id': content['number']})
         if triggered_run is None:
             abort(400, "Failed to trigger DAG.")
